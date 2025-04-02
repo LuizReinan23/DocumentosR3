@@ -1,1 +1,66 @@
+**Listar interfaces GPON:**
+```
+show interface gpon
+```
+
+**Ver ONUs registradas em uma porta:**
+```
+show gpon onu interface gpon 1/1/2
+```
+
+**Ver todas as ONUs registradas na OLT:**
+```
+show gpon onu all
+```
+
+**Detalhes de uma ONU (ex: RX/TX):**
+```
+show gpon onu optics gpon 1/1/2 onu <onu-id>
+```
+
+**Ver status de sincronismo e autenticação:**
+```
+show gpon onu status gpon 1/1/2 onu <onu-id>
+```
+
+**Reiniciar uma ONU:**
+```
+gpon onu reset gpon 1/1/2 onu <onu-id>
+```
+
+**Excluir ONU:**
+```
+no gpon onu gpon 1/1/2 onu <onu-id>
+```
+
+**Configurar ONU (exemplo):**
+```
+configure terminal
+gpon
+interface gpon 1/1/2
+onu <onu-id> type <modelo> sn <serial>
+```
+
+**Ver estatísticas da porta GPON:**
+```
+show statistics interface gpon 1/1/2
+```
+
+**Ver informações de desempenho da ONU:**
+```
+show gpon performance gpon 1/1/2 onu <onu-id>
+```
+
+**Ver MACs conectados na ONU:**
+```
+show mac address-table interface gpon 1/1/2 onu <onu-id>
+```
+
+**Ver configuração aplicada em uma ONU:**
+```
+show running-config interface gpon 1/1/2 onu <onu-id>
+```
+
+**Testar conectividade com ONU (ping):**
+```
 
