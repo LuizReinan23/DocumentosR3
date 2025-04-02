@@ -1,0 +1,2 @@
+set-inform http://45.4.120.20:8080/inform
+syswrapper.sh restore
