@@ -1,0 +1,141 @@
+--ativar logs-- 
+
+debug gpon pon
+debug gpon onu
+debug gpon verbose
+
+conf t
+
+logging terminal prio 7
+
+--desativar logs--
+
+end
+
+no debug all
+
+
+--ROGUE DETECTION--
+conf t
+
+logging terminal prio 7
+
+interface gponx/x 
+
+rogue-detection start periodical configure 1 previously-used
+
+Para desativar a detecção deve-se estar dentro da porta GPON:
+
+no rogue-detection periodical
+
+--ADICIONAR ONU--
+nu add serial-number dacm91f27ee8
+onu dacm91f27ee8 flow-profile ONU101_VLAN
+
+--VERIFICAR LOG--
+show log | include gpon-1/1/1/1
+
+--ATIVAÇÃO SNMP--
+config
+snmp agent enabled
+snmp community r3internet sec-name r3internet
+snmp agent version v2c
+snmp vacm group r3internet
+member r3internet
+sec-model v2c
+!
+access "" v2c no-auth-no-priv
+context-match prefix
+read-view root
+write-view root
+notify-view root
+top
+snmp vacm view root
+subtree 1.3
+included
+!
+!
+
+snmp system contact r3internet
+snmp system location r3internet
+commit
+
+--LIBERAÇÃO ONU/MPLS--
+POP_15_OLT_DATACOM(config)# 
+POP_15_OLT_DATACOM(config)# 
+POP_15_OLT_DATACOM(config)# interface gpon 1/1/9
+POP_15_OLT_DATACOM(config-gpon-1/1/9)# no shutdown
+POP_15_OLT_DATACOM(config-gpon-1/1/9)# onu 0
+POP_15_OLT_DATACOM(config-gpon-onu-0)# serial-number PRKS00C04492
+POP_15_OLT_DATACOM(config-gpon-onu-0)# no name
+POP_15_OLT_DATACOM(config-gpon-onu-0)# line-profile VLAN351
+POP_15_OLT_DATACOM(config-gpon-onu-0)# ethernet 1
+POP_15_OLT_DATACOM(config-ethernet-1)# native vlan vlan-id 351
+POP_15_OLT_DATACOM(config-ethernet-1)# top
+POP_15_OLT_DATACOM(config)# service-port 10000091 gpon 1/1/9 onu 0 gem 1
+POP_15_OLT_DATACOM(config-service-port-10000091)# mpls l2vpn vpls-group SW-POP-01 vpn 351 bridge-domain access-interface service-port-10000091
+POP_15_OLT_DATACOM(config-access-interface-service-port-10000091)# 
+POP_15_OLT_DATACOM(config-access-interface-service-port-10000091)# 
+POP_15_OLT_DATACOM(config-access-interface-service-port-10000091)# commit comment DMOS_GPON_ATIVA_ROUTER_MPLS
+Commit complete.
+POP_15_OLT_DATACOM(config-access-interface-service-port-10000091)# exit
+POP_15_OLT_DATACOM(config-vpn-351-bd)#
+
+
+--Verificar sinal da ONU--
+show interface gpon 1/1/1 onu 1 optical-info
+
+
+Welcome to the DmOS CLI
+admin connected from 10.20.20.5 using ssh on POP_1_OLT2_DATACOM
+POP_1_OLT2_DATACOM# config
+Entering configuration mode terminal
+POP_1_OLT2_DATACOM(config)# interface gpon 1/1/6
+POP_1_OLT2_DATACOM(config-gpon-1/1/6)# no shutdown
+POP_1_OLT2_DATACOM(config-gpon-1/1/6)# onu 9
+POP_1_OLT2_DATACOM(config-gpon-onu-9)# serial-number DACM91F15338
+POP_1_OLT2_DATACOM(config-gpon-onu-9)# name raquelmontinime
+POP_1_OLT2_DATACOM(config-gpon-onu-9)# line-profile PPPoE-Router_PON_6
+POP_1_OLT2_DATACOM(config-gpon-onu-9)# veip 1
+POP_1_OLT2_DATACOM(config-veip-1)# top
+POP_1_OLT2_DATACOM(config)# service-port 10000961 gpon 1/1/6 onu 9 gem 1 match vlan vlan-id 2036 action vlan replace vlan-id 2036
+POP_1_OLT2_DATACOM(config-service-port-10000961)# commit  
+Commit complete.
+POP_1_OLT2_DATACOM(config-service-port-10000961)# exit
+POP_1_OLT2_DATACOM(config)# 
+
+--VER SINAL DOS CLIENTES--
+
+Show interface gpon | display curly-braces | include "gpon |onu \d*| eq-id|rx-optical-pw" | nomore gpon 1/1/6 
+
+
+
+
+
+config
+no mpls l2vpn vpls-group SW-POP-01 vpn 613 bridge-domain access-interface service-port-1046
+commit comment DMOS_GPON_REMOVE_SERVICE_PORT_VPN
+no service-port 1046
+interface gpon 1/1/3
+no onu 46
+top
+commit comment DMOS_GPON_REMOVE_ONU_MPLS
+exit
+
+config
+
+
+interface gpon 1/1/2
+no shutdown
+onu 11
+serial-number DACM9198686C
+name flaviobueno
+line-profile VLAN612
+veip 1
+top
+service-port 10001121 gpon 1/1/2 onu 11 gem 1
+mpls l2vpn vpls-group SW-POP-01 vpn 612 bridge-domain access-interface service-port-10001121
+
+
+commit comment DMOS_GPON_ATIVA_ROUTER_MPLS
+exit
