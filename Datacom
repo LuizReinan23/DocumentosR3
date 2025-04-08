@@ -143,4 +143,4 @@ exit
 
 
 --Ver sinal dos clientes por Gpon--
-"show interface gpon 1/1/2 | display curly-braces | include 'gpon|onu \d*|rx-optical-pw"
+show interface gpon 1/1/2 | display curly-braces | include "gpon|onu \d*|rx-optical-pw"
