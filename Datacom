@@ -139,3 +139,8 @@ mpls l2vpn vpls-group SW-POP-01 vpn 612 bridge-domain access-interface service-p
 
 commit comment DMOS_GPON_ATIVA_ROUTER_MPLS
 exit
+
+
+
+--Ver sinal dos clientes por Gpon--
+"show interface gpon 1/1/2 | display curly-braces | include 'gpon|onu \d*|rx-optical-pw"
