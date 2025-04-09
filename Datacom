@@ -19,7 +19,7 @@ Dar commit para salvar as configurações
 no onu serial DCO1D1234567
 
 
---Ver informações das Gpon--
+--Listar interfaces Gpon--
 show interface transceivers
 
 -ativar logs-- 
