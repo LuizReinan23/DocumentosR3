@@ -100,3 +100,17 @@ POP_15_OLT_DATACOM(config-access-interface-service-port-10000091)# commit commen
 Commit complete.
 POP_15_OLT_DATACOM(config-access-interface-service-port-10000091)# exit
 POP_15_OLT_DATACOM(config-vpn-351-bd)#
+
+--ROMOVER ONU COM MPLS--
+config
+do show interface gpon 1/1/x onu (anotar o ID do MAC)
+interface gpon 1/1/x
+no onu ID da ONU
+commit
+top
+
+mpls l2vpn vpls-group SW-POP-01 vpn X
+no bridge-domain access-interface service-port-x
+commit
+
+
