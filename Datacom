@@ -4,6 +4,15 @@ show interface gpon 1/1/1 onu 1 optical-info
 --Ver sinal dos clientes por Gpon--
 show interface gpon 1/1/2 | display curly-braces | include "gpon|onu \d*|rx-optical-pw"
 
+--Configurar VLAN Porta GPON--
+Config
+dot1q vlan X
+interface ten-gigabit-ethernet 1/1/X
+top
+service vlan X type n:1
+top
+commit
+
 --Remover ONU--
 # 1. Acesse a interface PON onde está a ONU
 interface gpon 1/1  # (ou epon, dependendo do tipo da porta)
