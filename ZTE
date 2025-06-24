@@ -1,0 +1,19 @@
+*** Remover ONU na OLT ZTE ***
+
+configure terminal
+
+show gpon onu by sn <SERIAL-ONU>
+(Retorna a PON e o ID da ONU em questão. Ex:)
+ZTE_C620-POP58_1(config)#show gpon onu by sn ZTEGD4F345C5
+SearchResult
+-----------------
+gpon_onu-1/1/10:50
+(Nesse caso, a PON da OLT em que a ONU está é a 10 e o ID dela é 50)
+
+interface gpon_olt-1/1/<PON>
+
+no onu <ID-ONU>
+
+exit
+
+do write
