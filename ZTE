@@ -17,3 +17,7 @@ no onu <ID-ONU>
 exit
 
 do write
+
+** Verfificar Sinal Gpon das ONU**
+show pon power onu-rx gpon-olt_1/1/1
+
