@@ -21,3 +21,25 @@ do write
 ** Verfificar Sinal Gpon das ONU**
 show pon power onu-rx gpon-olt_1/1/1
 
+
+**Liberar ONU**
+conf t
+
+interface gpon-olt_1/1/6
+onu 1 type ZTE sn ZTEGD98BDAC4
+exit
+
+interface gpon-onu_1/1/6:59
+tcont 1 profile default
+gemport 1 tcont 1
+service-port 1 vport 1 user-vlan 143 vlan 143
+exit
+
+pon-onu-mng gpon-onu_1/2/2:1
+service 1 gemport 1 vlan 143
+wan-ip 1 mode pppoe username media3 password kios vlan-profile netmedia143 host 1
+exit
+exit
+---------------------------------------------------
+show pon onu uncfg
+show gpon onu state
