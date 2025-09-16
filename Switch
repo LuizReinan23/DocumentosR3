@@ -1,0 +1,8 @@
+--Ver consumo das portas--
+Show interface utilization
+
+--Ver qual descrição das portas
+show interface description
+
+--Ver status das portas--
+show interface link
