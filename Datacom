@@ -1,6 +1,10 @@
 --Verificar sinal da ONU--
 show interface gpon 1/1/1 onu 1 optical-info
 
+-- Listar ONU Configuradas por Gpon--
+show interface gpon 1/1/6 onu
+
+
 --Ver sinal dos clientes por Gpon--
 show interface gpon 1/1/2 | display curly-braces | include "gpon|onu \d*|rx-optical-pw"
 
