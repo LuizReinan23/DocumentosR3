@@ -1,6 +1,11 @@
 --Verificar sinal da ONU--
 show interface gpon 1/1/1 onu 1 optical-info
 
+--Verificar Temperatura de uso da CPU--
+show environment
+show system cpu
+show system memory
+
 -- Listar ONU Configuradas por Gpon--
 show interface gpon 1/1/6 onu
 
