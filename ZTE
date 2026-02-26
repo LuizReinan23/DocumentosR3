@@ -21,6 +21,10 @@ do write
 ** Verfificar Sinal Gpon das ONU**
 show pon power onu-rx gpon-olt_1/1/1
 
+** Verificar Versão da ONU**
+show remote-unit information gpon_olt-1/1/x (ID DA ONU)
+show remote-unit update-status gpon_olt-1/1/x (ID DA ONU)
+
 
 **Liberar ONU**
 conf t
